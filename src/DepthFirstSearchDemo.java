@@ -40,7 +40,7 @@ public class DepthFirstSearchDemo {
 
     public int search(int startX, int startY, int targetX, int targetY) {
         min = Integer.MAX_VALUE;
-        if (block[targetX][targetY] == 0) {
+        if (block[startX][startY] == 0 || block[targetX][targetY] == 0) {
             return min;
         }
         this.targetX = targetX;
@@ -50,7 +50,8 @@ public class DepthFirstSearchDemo {
     }
 
     public void dfs(int x, int y, int step) {
-        if (targetX == x && targetY == y) {
+
+        if (x == targetX && y == targetY) {
             if (step < min) {
                 min = step;
                 System.out.println(min);
@@ -59,23 +60,23 @@ public class DepthFirstSearchDemo {
         }
 
         int tx, ty;
-        for (int k = 0; k < next.length; k++) {
-            tx = x + next[k][0];
-            ty = y + next[k][1];
-            //判断越界
-            if (tx < 0 || tx > mazeWidth - 1 || ty <0 || ty > mazeLength - 1) {
+        for (int i = 0; i< next.length; i ++) {
+            tx = x + next[i][0];
+            ty = y + next[i][1];
+
+            //越界，已在障碍物中或路径中，跳过
+            if (tx < 0 || tx > mazeWidth - 1 || ty <0 || ty > mazeLength - 1 || block[tx][ty] == 0 || maze[tx][ty] == 1) {
                 continue;
             }
 
-            if (maze[tx][ty] == 0 && block[tx][ty] != 0) {
-                maze[tx][ty] = 1;
-                dfs(tx, ty, step + 1);
-                maze[tx][ty] = 0;
-            }
+            maze[tx][ty] = 1;
+            dfs(tx, ty ,step + 1);
+            maze[tx][ty] = 0;
         }
     }
+
     public static void main(String[] args) {
-        var demo = new DepthFirstSearchDemo(5, 5);
+        var demo = new DepthFirstSearchDemo(3, 6);
         demo.search(0,0, 2, 2);
     }
 }
