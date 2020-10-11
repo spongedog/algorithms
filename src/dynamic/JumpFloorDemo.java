@@ -7,7 +7,7 @@ package dynamic;
  */
 public class JumpFloorDemo {
 
-    public static int JumpFloorII(int target) {
+    public static int jumpFloorII(int target) {
         int[] dp = new int[target + 1];
         dp[1] = 1;
 
@@ -15,7 +15,7 @@ public class JumpFloorDemo {
             return dp[target];
         }
 
-        for (int i = 2; i < target + 1; i ++){
+        for (int i = 2; i < target + 1; i ++) {
             for (int j = 1; j < i; j ++) {
                 dp[i] = Math.max(dp[i], dp[i - j] + dp[j]);
             }
@@ -25,6 +25,6 @@ public class JumpFloorDemo {
     }
 
     public static void main(String[] args) {
-        System.out.println(JumpFloorII(2));
+        System.out.println(jumpFloorII(2));
     }
 }
