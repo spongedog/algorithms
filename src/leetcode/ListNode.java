@@ -13,5 +13,12 @@ public class ListNode {
         val = x;
         next = null;
     }
+
+    public void visit() {
+        System.out.println(val +" ");
+        if (next != null) {
+            next.visit();
+        }
+    }
 }
 

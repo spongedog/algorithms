@@ -8,7 +8,7 @@ package dynamic;
  */
 public class NumberOf1Demo {
 
-    public static int NumberOf1(int n) {
+    public static int numberOf1(int n) {
         int numOf1 = 0;
         while ((n = n & (n -1) ) > 0) {
             numOf1 ++;
@@ -18,6 +18,6 @@ public class NumberOf1Demo {
     }
 
     public static void main(String[] args) {
-        System.out.println(NumberOf1(3));
+        System.out.println(numberOf1(3));
     }
 }

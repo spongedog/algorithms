@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * 根据前序和中序遍历结果
  * @author 郑凯努
  * @version 1.0
  * @date 2020/7/22

@@ -1,5 +1,8 @@
 package dynamic;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 /**
  * @author 郑凯努
  * @version 1.0
@@ -35,6 +38,20 @@ public class CutRope {
         }
 
         return cache[target];
+    }
+
+    public boolean uniqueOccurrences(int[] arr) {
+        Map<Integer, Long> occurrencesMap =
+                Arrays.stream(arr).boxed().collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+        Set<Long> occurrences = new HashSet<>();
+        for (Long value : occurrencesMap.values()) {
+            if (occurrences.contains(value)) {
+                return false;
+            }
+            occurrences.add(value);
+        }
+
+        return true;
     }
 
     public static void main(String[] args) {

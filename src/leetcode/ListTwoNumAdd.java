@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.Optional;
+
 /**
  * 2两数相加
  * @author 郑凯努
@@ -9,39 +11,26 @@ package leetcode;
 public class ListTwoNumAdd {
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        int sum = l1.val + l2.val;
-        int step;
-        if (sum >= 10) {
-            step = 1;
-            sum %= 10;
-        } else {
-            step = 0;
-        }
-
-        ListNode first = new ListNode(sum);
+        ListNode first = new ListNode(0);
         ListNode last = first;
-        while (l1.next != null && l2.next != null) {
-            sum = l1.next.val + l2.next.val + step;
-            if (sum >= 10) {
-                step = 1;
-                sum %= 10;
-            } else {
-                step = 0;
-            }
+        int step = 0;
+        while (l1 != null || l2 != null) {
+            int sum = Optional.ofNullable(l1).map(l -> l.val).orElse(0) +
+                    Optional.ofNullable(l2).map(l -> l.val).orElse(0)
+                    + step;
+            step = sum / 10;
+            sum %= 10;
             ListNode sumNode = new ListNode(sum);
             last.next = sumNode;
             last = sumNode;
-            l1 = l1.next;
-            l2 = l2.next;
+            l1 = Optional.ofNullable(l1).map(l -> l.next).orElse(null);
+            l2 = Optional.ofNullable(l2).map(l -> l.next).orElse(null);
         }
 
-        //todo 进位处理
-        if (l1.next != null) {
-            last.next = l1.next;
-        } else if (l2.next != null) {
-            last.next = l2.next;
+        if (step > 0) {
+            last.next = new ListNode(step);
         }
 
-        return first;
+        return first.next;
     }
 }
